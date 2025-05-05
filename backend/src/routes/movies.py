@@ -2,190 +2,104 @@ from flask import request
 from flask_restx import Resource, Namespace
 from flask_jwt_extended import jwt_required
 
-from ..models import create_movie_model, create_preview_model, create_rating_model, create_comment_model
-from ..controllers import MoviesController, MovieController
+from controllers.movies import MoviesController, MovieController
+from models.serialization_models import (
+    create_book_model        as create_movie_model,
+    create_book_preview_model as create_preview_model,
+    create_rating_model,
+    create_comment_model,
+)
 
+movies_namespace = Namespace("movies", description="Books related operations.")
 
-movies_namespace = Namespace("movies", description="Movies related operations.")
-
-movie_model = create_movie_model(movies_namespace)
+movie_model   = create_movie_model(movies_namespace)
 preview_model = create_preview_model(movies_namespace)
-rating_model = create_rating_model(movies_namespace)
+rating_model  = create_rating_model(movies_namespace)
 comment_model = create_comment_model(movies_namespace)
 
 
 @movies_namespace.route('')
 class MoviesRouter(Resource):
-    """
-    A class representing the movies route, responsible for handling operations related to retrieving all movies.
-    """
-
     @movies_namespace.marshal_list_with(preview_model)
     @jwt_required()
     def get(self):
         """
-        Gets data of all movies.
-
-        :return: A list of dictionaries containing the following keys for each movie:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-        :rtype: list[dict[str, any]]
+        GET /movies
+        Return a list of all books (id, title, author).
         """
-        movies_controller = MoviesController()
-
-        movies_response = movies_controller.get_movies()
-
-        return movies_response, 200
+        ctrl = MoviesController()
+        return ctrl.get_books(), 200
 
 
-@movies_namespace.route("/sort")
+@movies_namespace.route('/sort')
 class MoviesSortRouter(Resource):
-    """
-    A class representing the movies sort route, responsible for handling operations related to sorting movies.
-    """
-
-    @movies_namespace.response(400, "Invalid QUERY parameters")
+    @movies_namespace.response(400, "Invalid query parameters")
     @movies_namespace.marshal_list_with(preview_model)
     @jwt_required()
     def get(self):
         """
-        Gets all movies sorted by QUERY parameters.
-
-        :return: A list of dictionaries containing the following keys for each sorted movie:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-        :rtype: list[dict[str, any]]
+        GET /movies/sort?year=latest&title=abc
+        Return sorted books by query parameters.
         """
-        movies_controller = MoviesController()
-
-        sort_params = request.args.to_dict()
-
-        if not movies_controller.validate_sort_parameters(sort_params):
-            return {"message": "Invalid QUERY parameters."}, 400
-
-        movies_sorted_response = movies_controller.get_movies_sorted(sort_params)
-
-        return movies_sorted_response, 200
+        ctrl = MoviesController()
+        params = request.args.to_dict()
+        if not ctrl.validate_sort_parameters(params):
+            return {"message": "Invalid query parameters."}, 400
+        return ctrl.get_books_sorted(params), 200
 
 
-@movies_namespace.route("/movie/<int:id>")
+@movies_namespace.route('/<int:id>')
 class MovieRouter(Resource):
-    """
-    A class representing the movie route, responsible for handling operations related to a single movie.
-    """
-
-    @movies_namespace.response(404, "Movie not found")
+    @movies_namespace.response(404, "Book not found")
     @movies_namespace.marshal_with(movie_model)
     @jwt_required()
     def get(self, id):
         """
-        Gets a movie by its ID.
-
-        :param id: The ID of the movie.
-        :type id: int
-
-        :return: A dictionary containing the following keys:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-                    - country (str): Movie's country.
-                    - year (int): Movie's release year.
-                    - main_actors (str): Main actors in the movie.
-                    - description (str): Movie description.
-                    - rating (int): Movie's average rating.
-                    - comments (list[dict[str, any]]): Dictionary of user's comments.
-        :rtype: dict[str, any]
+        GET /movies/<id>
+        Return full details for a single book.
         """
-        movie_controller = MovieController(id)
-
-        movie_response = movie_controller.get_movie()
-
-        if movie_response is None:
-            return {"message": "Movie not found"}, 404
-
-        return movie_response, 200
+        ctrl = MovieController(id)
+        book = ctrl.get_book()
+        if book is None:
+            return {"message": "Book not found"}, 404
+        return book, 200
 
 
-@movies_namespace.route("/movie/<int:id>/rate")
+@movies_namespace.route('/<int:id>/rate')
 class MovieRateRouter(Resource):
-    """
-    A class representing the movie rate route, responsible for handling operations related to rating a movie.
-    """
-
     @movies_namespace.expect(rating_model)
-    @movies_namespace.response(404, "Movie not found")
+    @movies_namespace.response(404, "Book not found")
     @movies_namespace.marshal_with(movie_model)
     @jwt_required()
     def put(self, id):
         """
-        Adds a new rating for the movie by its ID.
-
-        :param id: The ID of the movie.
-        :type id: int
-
-        :return: A dictionary containing the following keys:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-                    - country (str): Movie's country.
-                    - year (int): Movie's release year.
-                    - main_actors (str): Main actors in the movie.
-                    - description (str): Movie description.
-                    - rating (int): Movie's average rating.
-                    - comments (list[dict[str, any]]): Dictionary of user's comments.
-        :rtype: dict[str, any]
+        PUT /movies/<id>/rate
+        Body: { "user_id": X, "book_rating": 4.2 }
+        Add or update a rating for this book.
         """
-        movie_controller = MovieController(id)
-
-        rate_data = request.get_json()
-
-        movie_rate_response = movie_controller.rate_movie(rate_data.get("user_id"), rate_data.get("user_rating"))
-
-        if movie_rate_response is None:
-            return {"message": "Movie not found"}, 404
-
-        return movie_rate_response, 200
+        ctrl = MovieController(id)
+        data = request.get_json()
+        updated = ctrl.rate_book(data.get("user_id"), data.get("book_rating"))
+        if updated is None:
+            return {"message": "Book not found"}, 404
+        return updated, 200
 
 
-@movies_namespace.route("/movie/<int:id>/comment")
+@movies_namespace.route('/<int:id>/comment')
 class MovieCommentRouter(Resource):
-    """
-    A class representing the movie comment route, responsible for handling operations related to commenting on a movie.
-    """
-
     @movies_namespace.expect(comment_model)
-    @movies_namespace.response(404, "Movie not found")
+    @movies_namespace.response(404, "Book not found")
     @movies_namespace.marshal_with(movie_model)
     @jwt_required()
     def put(self, id):
         """
-        Adds a new comment for the movie by its ID.
-
-        :param id: The ID of the movie.
-        :type id: int
-
-        :return: A dictionary containing the following keys:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-                    - country (str): Movie's country.
-                    - year (int): Movie's release year.
-                    - main_actors (str): Main actors in the movie.
-                    - description (str): Movie description.
-                    - rating (int): Movie's average rating.
-                    - comments (list[dict[str, any]]): Dictionary of user's comments.
-        :rtype: dict[str, any]
+        PUT /movies/<id>/comment
+        Body: { "user_id": X, "user_comment": "Great read!" }
+        Add or update a comment for this book.
         """
-        movie_controller = MovieController(id)
-
-        comment_data = request.get_json()
-
-        movie_comment_response = movie_controller.comment_movie(comment_data.get("user_id"),
-                                                                comment_data.get("user_comment"))
-
-        if movie_comment_response is None:
-            return {"message": "Movie not found"}, 404
-
-        return movie_comment_response, 200
+        ctrl = MovieController(id)
+        data = request.get_json()
+        updated = ctrl.comment_book(data.get("user_id"), data.get("user_comment"))
+        if updated is None:
+            return {"message": "Book not found"}, 404
+        return updated, 200

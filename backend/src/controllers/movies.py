@@ -1,49 +1,31 @@
-from ..models import Movie
+
+# controllers/books.py
+from ..models import Book
 
 
-class MoviesController:
+class BooksController:
     """
-    MoviesController class for handling movies-related operations.
+    Controller for multi-book operations: list, sort.
     """
 
     @staticmethod
-    def get_movies():
+    def get_books():
         """
-        Retrieve all movie data.
-
-        :return: A list of dictionaries containing movie previews:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-        :rtype: list[dict[str, any]]
+        Return preview data for all books.
         """
-        return Movie.get_all()
+        return Book.get_all()
 
     @staticmethod
     def validate_sort_parameters(params):
         """
-        Validate the provided sort parameters.
-
-        :param params: The parameters for sorting movies.
-        :type params: dict
-
-        :return: True if parameters are valid, False otherwise.
-        :rtype: bool
+        Validate query parameters for sorting books.
         """
-        return Movie.validate_sort_parameters(params)
+        return Book.validate_sort_parameters(params)
 
     @staticmethod
-    def get_movies_sorted(params):
+    def get_books_sorted(params):
         """
-        Retrieve sorted movie data based on the provided parameters.
-
-        :param params: The parameters for sorting movies.
-        :type params: dict
-
-        :return: A list of dictionaries containing sorted movie previews:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-        :rtype: list[dict[str, any]]
+        Return sorted preview data for all books.
         """
-        return Movie.sort_all(params)
+        return Book.sort_all(params)
+

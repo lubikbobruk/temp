@@ -1,96 +1,42 @@
-from ..models import Movie, Rating, Comment
+# controllers/book.py
+from ..models import Book, Rating, Comment
 
 
-class MovieController:
+class BookController:
     """
-    MovieController class for handling movie-related operations.
-
-    :ivar movie: Instance of the Movie model.
+    Controller for single-book operations: retrieve, rate, comment.
     """
 
-    def __init__(self, movie_id):
+    def __init__(self, book_id):
+        self.book = Book.get_by_id(book_id)
+
+    def get_book(self):
         """
-        Initialize the MovieController with a movie ID.
-
-        :param movie_id: The ID of the movie.
-        :type movie_id: int
+        Retrieve a book's full data by ID, or None if not found.
         """
-        self.movie = Movie.get_by_id(movie_id)
+        return None if self.book is None else self.book.get_data()
 
-    def get_movie(self):
+    def rate_book(self, user_id, user_rating):
         """
-        Retrieve movie data.
+        Add or update a user's rating for this book.
 
-        :return: None if the movie is not found, otherwise a dictionary containing movie data with the following keys:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-                    - country (str): Movie's country.
-                    - year (int): Movie's release year.
-                    - main_actors (str): Main actors in the movie.
-                    - description (str): Movie description.
-                    - rating (int): Movie's average rating.
-                    - comments (list[dict[str, any]]): Dictionary of user's comments.
-        :rtype: dict[str, any] or None
+        :return: Updated book data dict or None if book not found.
         """
-        return None if self.movie is None else self.movie.get_data()
-
-    def rate_movie(self, user_id, user_rating):
-        """
-        Add a rating for the movie.
-
-        :param user_id: The ID of the user providing the rating.
-        :type user_id: int
-
-        :param user_rating: The user's rating of the movie.
-        :type user_rating: int
-
-        :return: None if the movie is not found, otherwise an updated dictionary containing movie data:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-                    - country (str): Movie's country.
-                    - year (int): Movie's release year.
-                    - main_actors (str): Main actors in the movie.
-                    - description (str): Movie description.
-                    - rating (int): Movie's average rating.
-                    - comments (list[dict[str, any]]): Dictionary of user's comments.
-        :rtype: dict[str, any] or None
-        """
-        if not self.movie:
+        if not self.book:
             return None
-
-        new_rating = Rating.create(self.movie.get_id(), user_id, user_rating)
+        new_rating = Rating.create(self.book.get_id(), user_id, user_rating)
         new_rating.save()
+        return self.book.get_data()
 
-        return self.movie.get_data()
-
-    def comment_movie(self, user_id, user_comment):
+    def comment_book(self, user_id, user_comment):
         """
-        Add a comment for the movie.
+        Add or update a user's comment for this book.
 
-        :param user_id: The ID of the user providing the comment.
-        :type user_id: int
-
-        :param user_comment: The user's comment for the movie.
-        :type user_comment: str
-
-        :return: None if the movie is not found, otherwise an updated dictionary containing movie data:
-                    - id (int): Movie ID.
-                    - title (str): Movie title.
-                    - category (str): Movie category.
-                    - country (str): Movie's country.
-                    - year (int): Movie's release year.
-                    - main_actors (str): Main actors in the movie.
-                    - description (str): Movie description.
-                    - rating (int): Movie's average rating.
-                    - comments (list[dict[str, any]]): Dictionary of user's comments.
-        :rtype: dict[str, any] or None
+        :return: Updated book data dict or None if book not found.
         """
-        if not self.movie:
+        if not self.book:
             return None
-
-        new_comment = Comment.create(self.movie.get_id(), user_id, user_comment)
+        new_comment = Comment.create(self.book.get_id(), user_id, user_comment)
         new_comment.save()
+        return self.book.get_data()
 
-        return self.movie.get_data()
