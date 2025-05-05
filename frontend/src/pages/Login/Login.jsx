@@ -4,7 +4,6 @@ import s from "./Login.module.css"
 import g from "../../App.module.css"
 import Input from "../../components/Input/Input"
 import Button from "../../components/Button/Button"
-import wave from "../../res/pics/lowerWave.png"
 import axios from "../../api/axios"
 
 const Login = () => {
@@ -108,9 +107,6 @@ const Login = () => {
             </form>
           </div>
         </div>
-      </div>
-      <div className={s.wave}>
-        <img src={wave} alt='Wave' />
       </div>
     </>
   )
