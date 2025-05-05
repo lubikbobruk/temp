@@ -1,0 +1,61 @@
+.Header {
+    width: 100%;
+    height: 92px;
+    border-bottom: 1px solid #3c404f;
+  }
+  
+  .headerContainer {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .iconColumn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon {
+    cursor: pointer;
+    margin: 0 27px;
+  }
+  
+  .icon a {
+    display: block;
+  }
+  
+  .actionColumn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-self: center;
+  }
+  
+  .buttonWrapper {
+    width: 140px;
+    height: 44px;
+  }
+  
+  .logoWrapper {
+      position: relative;
+      width: 120px;
+      height: 92px;
+      margin: 0 40px;
+  }
+  
+  .logoWrapper img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .icon a img:hover {
+    opacity: 0.6;
+  }
+  
+  .active{
+    filter: invert(36%) sepia(92%) saturate(745%) hue-rotate(164deg) brightness(84%) contrast(97%);
+  }

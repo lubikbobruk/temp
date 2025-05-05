@@ -1,0 +1,28 @@
+.Button {
+  font-family: 'Montserrat';
+  width: 100%;
+  height: 100%;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  background: #31a3ec;
+  border-radius: 16px;
+  display: flex;
+  color: white;
+  cursor: pointer;
+  padding: 12px 27px;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in;
+  outline: 0;
+  border: none;
+}
+
+.Button:hover {
+  background: #0875AC;
+}
+
+.Button svg {
+  margin-left: 7px;
+}

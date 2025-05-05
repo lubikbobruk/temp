@@ -1,0 +1,34 @@
+.Films {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+
+.filmsTitle {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 49px;
+  margin-bottom: 50px;
+}
+
+.lowerWave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 110px;
+  width: 100%;
+  z-index: 0;
+}
+
+.lowerWave img {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.showAllButton {
+  width: 330px;
+  height: 50px;
+  margin-bottom: 30px;
+}

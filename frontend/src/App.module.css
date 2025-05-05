@@ -1,0 +1,49 @@
+.App {
+  background-color: white;
+  color: black;
+  font-family: "Montserrat";
+  position: relative;
+  height: 100vh;
+}
+
+.container {
+  width: 1420px;
+  padding: 0 20px;
+}
+
+@media (max-width: 1460px) {
+  .container{
+    width: 860px;
+  }
+}
+
+@media (max-width: 900px) {
+  .container{
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./res/fonts/Montserrat-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./res/fonts/Montserrat-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./res/fonts/Montserrat-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./res/fonts/Montserrat-Bold.ttf");
+  font-weight: 700;
+}

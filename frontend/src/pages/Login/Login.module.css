@@ -1,0 +1,119 @@
+.Login {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginContainer {
+    width: 100%;
+}
+
+.logoRow {
+    width: 100%;
+    text-align: start;
+}
+
+.formWrapper {
+    margin-top: 108px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formTitle {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+}
+
+.inputWrapper {
+    width: 354px;
+    height: 56px;
+    margin-top: 60px;
+}
+
+.buttonWrapper {
+    width: 354px;
+    height: 56px;
+    margin-top: 60px;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+}
+
+.wave img {
+    width: 100%;
+    height: 100%;
+}
+
+.blueSnowFlake {
+    position: absolute;
+    width: 117.95px;
+    height: 113.5px;
+    top: 49%;
+    left: 82%;
+    transform: rotate(47.27deg);
+}
+
+.blueSnowFlake img{
+    width: 100%;
+    height: 100%;
+}
+
+.pinkSnowFlake {
+    position: absolute;
+    width: 156.14px;
+    height: 137.76px;
+    top: 17%;
+    left: 76%;
+    transform: rotate(44.77deg);
+
+}
+
+.pinkSnowFlake img{
+    position: absolute;
+}
+
+.violetSnowFlake {
+    position: absolute;
+    width: 156.14px;
+    height: 137.76px;
+    top: 52%;
+    left: 10%;
+}
+
+.violetSnowFlake img{
+    width: 100%;
+    height: 100%;
+}
+
+.cyanSnowFlake {
+    position: absolute;
+    width: 52px;
+    height: 56px;
+    top: 30%;
+    left: 20%;
+    transform: rotate(58.54deg);
+}
+
+.cyanSnowFlake img {
+    width: 100%;
+    height: 100%;
+}

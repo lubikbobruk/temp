@@ -1,0 +1,47 @@
+.Input {
+  width: 100%;
+  height: 100%;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  border-radius: 5px;
+  padding-left: 29px;
+  border: 1px solid #5F667B;
+  outline: 0;
+  color: black;
+}
+
+.Input:hover {
+    box-shadow: 1px 1px 21px rgba(207, 232, 255, 0.86);
+    outline: 0;
+}
+
+.Input:active {
+    filter: none;
+    outline: 0;    
+    border: 1px solid #5F667B;
+}
+
+.Input:focus {
+    filter: none;
+    outline: 0;    
+    border: 1px solid #5F667B;
+}
+
+span {
+    font-family: 'Montserrat';
+    position: relative;
+    left: 6px;
+    font-size: 15px;
+    color: red;
+}
+
+
+.invalidInput, .invalidInput:focus {
+    border: 1px solid #F37090;
+}
+
+.invalidInput:hover {
+    box-shadow: 1px 1px 21px #f3709164;
+}
