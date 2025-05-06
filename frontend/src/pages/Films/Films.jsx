@@ -4,7 +4,6 @@ import PageWrapper from "../PageWrapper/PageWrapper"
 import Film from "../../components/Film/Film"
 import s from "./Films.module.css"
 import Carousel from "../../components/Carousel/Carousel"
-import lowerWave from "../../res/pics/lowerWave.png"
 import useFilmsContext from "../../hooks/useFilmsContext"
 import Button from "../../components/Button/Button"
 import { useNavigate } from "react-router-dom"
@@ -20,7 +19,16 @@ const Films = () => {
   return (
     <>
       <div className={s.Films}>
-        <div className={s.filmsTitle}>Rate films</div>
+      <div
+        style={{
+          backgroundImage: "url('/assets/back.jpg')",
+          backgroundRepeat: "repeat-y",
+          backgroundSize: "100% auto",
+          backgroundPosition: "top center",
+          minHeight: "100vh",
+        }}
+      >
+        <div className={s.filmsTitle}>Books to rate</div>
         <Carousel>
           {renderedFilms}
           {renderedFilms}
@@ -48,17 +56,13 @@ const Films = () => {
           </Button>
         </div>
       </div>
-      <div className={s.lowerWave}>
-        <img src={lowerWave} alt='Wave' />
-      </div>
+    </div>  
     </>
   )
 }
 
 const FilmsContainer = () => (
-  <PageWrapper>
     <Films />
-  </PageWrapper>
 )
 
 export default FilmsContainer
