@@ -6,7 +6,7 @@
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  background: #31a3ec;
+  background: #1edb34;
   border-radius: 16px;
   display: flex;
   color: white;
@@ -20,7 +20,7 @@
 }
 
 .Button:hover {
-  background: #0875AC;
+  background: #226801;
 }
 
 .Button svg {

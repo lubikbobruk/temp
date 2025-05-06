@@ -3,8 +3,17 @@ import { useNavigate } from "react-router-dom";
 import s from "./Login.module.css"
 import g from "../../App.module.css"
 import Input from "../../components/Input/Input"
-import Button from "../../components/Button/Button"
+//import Button from "../../components/Button/Button"
 import axios from "../../api/axios"
+
+
+const Button = ({ children, ...rest }) => {
+  return (
+    <button className={s.Button} {...rest}>
+      {children}
+    </button>
+  )
+}
 
 
 const Login = () => {
@@ -85,12 +94,17 @@ const Login = () => {
 
   return (
     <>
-      <div className={s.Login}>
+      <div 
+        className={s.Login}
+        style = {{
+          backgroundImage: `url("/assets/library.jpg")`,
+        }}
+      >
         <div className={g.container}>
           <div className={s.loginContainer}>
             <form onSubmit={handleSubmit}>
               <div className={s.formWrapper}>
-                <div className={s.formTitle}>Hi, friend. Please, log in</div>
+                <div className={s.formTitle}>The Book Portal</div>
                 {inputs.map((input) => (
                   <div key={input.id} className={s.inputWrapper}>
                     <Input
@@ -101,6 +115,7 @@ const Login = () => {
                       onChange={inputOnChange}
                       errorMessage={error[input.name]}
                       valid={!error[input.name]}
+                      //className={s.formInput}
                     />
                   </div>
                 ))}
