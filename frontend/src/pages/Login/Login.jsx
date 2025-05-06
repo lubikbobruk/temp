@@ -2,8 +2,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import s from "./Login.module.css"
 import g from "../../App.module.css"
-import Input from "../../components/Input/Input"
-//import Button from "../../components/Button/Button"
 import axios from "../../api/axios"
 
 
@@ -15,6 +13,21 @@ const Button = ({ children, ...rest }) => {
   )
 }
 
+const Input = (props) => {
+  const { errorMessage, valid, name, ...inputProps } = props
+  const inputClass = valid ? "" : s.invalidInput
+
+  return (
+    <>
+      <input
+        className={`${s.Input} ${inputClass}`}
+        {...inputProps}
+        name={name}
+      />
+      {errorMessage && <span>{errorMessage}</span>}
+    </>
+  )
+}
 
 const Login = () => {
   const [formValues, setFormValues] = useState({
@@ -115,7 +128,6 @@ const Login = () => {
                       onChange={inputOnChange}
                       errorMessage={error[input.name]}
                       valid={!error[input.name]}
-                      //className={s.formInput}
                     />
                   </div>
                 ))}

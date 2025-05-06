@@ -34,9 +34,53 @@
   .Button:hover {
     background: #226801;
   }
+
+  .Input {
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat';
+    font-weight: 999;
+    font-size: 20px;
+    line-height: 24px;  
+    border-radius: 5px;
+    padding-left: 29px;
+    border: 3px solid #1edb34;
+    outline: 0;
+    color: black;
+  }
   
-  .Button svg {
-    margin-left: 7px;
+  .Input:hover {
+      box-shadow: 5px 5px 21px rgba(207, 232, 255, 0.86);
+      outline: 0;
+  }
+  
+  .Input:active {
+      filter: none;
+      outline: 0;    
+      border: 3px solid #1edb34;
+  }
+  
+  .Input:focus {
+      filter: none;
+      outline: 0;    
+      border: 3px solid #1edb34;
+  }
+  
+  span {
+      font-family: 'Montserrat';
+      position: relative;
+      left: 6px;
+      font-size: 15px;
+      color: red;
+  }
+  
+  
+  .invalidInput, .invalidInput:focus {
+      border: 1px solid #F37090;
+  }
+  
+  .invalidInput:hover {
+      box-shadow: 1px 1px 21px #f3709164;
   }
 
 .formContainer {
@@ -109,68 +153,13 @@
 }
 
 .inputWrapper {
-    width: 354px;
-    height: 56px;
+    width: 400px;
+    height: 65px;
     margin-top: 60px;
 }
 
 .buttonWrapper {
-    width: 354px;
+    width: 400px;
     height: 56px;
     margin-top: 60px;
-}
-
-.blueSnowFlake {
-    position: absolute;
-    width: 117.95px;
-    height: 113.5px;
-    top: 49%;
-    left: 82%;
-    transform: rotate(47.27deg);
-}
-
-.blueSnowFlake img{
-    width: 100%;
-    height: 100%;
-}
-
-.pinkSnowFlake {
-    position: absolute;
-    width: 156.14px;
-    height: 137.76px;
-    top: 17%;
-    left: 76%;
-    transform: rotate(44.77deg);
-
-}
-
-.pinkSnowFlake img{
-    position: absolute;
-}
-
-.violetSnowFlake {
-    position: absolute;
-    width: 156.14px;
-    height: 137.76px;
-    top: 52%;
-    left: 10%;
-}
-
-.violetSnowFlake img{
-    width: 100%;
-    height: 100%;
-}
-
-.cyanSnowFlake {
-    position: absolute;
-    width: 52px;
-    height: 56px;
-    top: 30%;
-    left: 20%;
-    transform: rotate(58.54deg);
-}
-
-.cyanSnowFlake img {
-    width: 100%;
-    height: 100%;
 }
