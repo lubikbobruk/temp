@@ -25,7 +25,7 @@ def create_app(config):
 
     db.init_app(app)  # Initialize the database with the app.
     Migrate(app, db)  # Enable database migration features.
-    CORS(app)  # Enable CORS.
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
     JWTManager(app)  # Initialize the JWT Manager.
 
     api = Api(app, doc='/docs')  # Initialize the API and set the doc route.

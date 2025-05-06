@@ -1,17 +1,19 @@
 import { useState } from "react"
-
+import { useNavigate } from "react-router-dom";
 import s from "./Login.module.css"
 import g from "../../App.module.css"
 import Input from "../../components/Input/Input"
 import Button from "../../components/Button/Button"
 import axios from "../../api/axios"
 
+
 const Login = () => {
   const [formValues, setFormValues] = useState({
-    login: "",
-    password: "",
+    user_email: "",
+    user_password: "",
   })
   const [error, setError] = useState({})
+  const navigate = useNavigate();
 
   const inputOnChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
@@ -20,23 +22,23 @@ const Login = () => {
   const inputs = [
     {
       id: 0,
-      name: "login",
-      type: "text",
-      placeholder: "Login",
-      label: "Login",
+      name: "user_email",
+      type: "email",
+      placeholder: "Email",
+      label: "Email",
       errorMessage:
-        "Username must contain 6-20 characters (uppercase, lowercase or numbers)",
-      pattern: "^[A-Za-z0-9]{6,20}$",
+        "Enter a valid email address",
+      pattern: "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
       required: true,
     },
     {
       id: 1,
-      name: "password",
+      name: "user_password",
       type: "password",
       placeholder: "Password",
       label: "Password",
-      errorMessage: "Password must contain 6-20 characters",
-      pattern: "^.{6,20}$",
+      errorMessage: "Password is required",
+      pattern: "^.{1,20}$",
       required: true,
     },
   ]
@@ -46,18 +48,20 @@ const Login = () => {
     if (validateForm()) {
       try {
         const response = await axios.post(
-          "/register",
-          JSON.stringify(...formValues),
+          "/auth/login",
+          JSON.stringify(formValues),
           {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
           }
         )
         console.log(response.data)
         console.log(response.accessToken)
-      } catch (err) {}
+        localStorage.setItem("token", response.data.accessToken)
+        navigate("/films")
+      } catch (err) {
+        console.error(err.response?.data?.message || "Login failed")
+      }
     }
   }
 

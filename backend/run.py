@@ -11,4 +11,4 @@ if __name__ == '__main__':
     This is the starting point of the application. It will be used when the script is run directly from the
     command line using the "python run.py" command.
     """
-    app.run()
+    app.run(debug=True)
