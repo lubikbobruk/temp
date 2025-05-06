@@ -3,7 +3,7 @@ import s from "./Film.module.css"
 import Rate from "../Rate/Rate"
 import { useNavigate } from "react-router-dom"
 
-const Film = ({ title, id }) => {
+const Film = ({ title, id, image }) => {
   const [rating, setRating] = useState(0)
   const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ const Film = ({ title, id }) => {
   return (
     <div className={s.Film}>
       <div className={s.filmImg}>
-        <img src='https://m.media-amazon.com/images/M/MV5BNjNhZTk0ZmEtNjJhMi00YzFlLWE1MmEtYzM1M2ZmMGMwMTU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg' />
+      <img src={image} alt={title} />
       </div>
       <div className={s.filmTitle} onClick={() => navigate(`/films/${id}`)}>
         {getNormalName(title)}
